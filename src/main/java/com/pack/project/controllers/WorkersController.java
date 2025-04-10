@@ -1,0 +1,51 @@
+package com.pack.project.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.pack.project.Entity.Workers;
+import com.pack.project.service.WorkerServices;
+
+
+@RestController
+@RequestMapping("/workers")
+public class WorkersController {
+	
+	@Autowired
+	private WorkerServices workerservices;
+	
+	@PostMapping("/add")
+	Workers insert(Workers worker)
+	{
+		return workerservices.save(worker);
+	}
+	
+	
+	@PostMapping("/filter")
+	ResponseEntity<List<Workers>> getWorkers(@RequestBody Workers workers)
+	{
+		List<Workers> li= workerservices.getWorkers(workers);
+		
+		if(li.isEmpty()){
+			return ResponseEntity.notFound().build();
+		}
+		else
+			return ResponseEntity.ok(li);
+		
+	}
+	
+	@GetMapping("/getAll")
+	List<Workers> getMethodName() {
+		return workerservices.getAllWorkers();
+	}
+	
+	
+
+}
