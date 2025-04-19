@@ -42,7 +42,7 @@ public class WorkersController {
 		
 	}
 	
-	@GetMapping("/getAll")
+	@GetMapping("/getall")
 	List<Workers> getMethodName() {
 		return workerservices.getAllWorkers();
 	}

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.pack.project.Entity.Status;
 import com.pack.project.Entity.Workers;
 
 import jakarta.transaction.Transactional;
@@ -26,5 +27,5 @@ public interface WorkersRepository extends JpaRepository<Workers, Long> {
 	@Modifying
 	@Transactional
 	@Query(value = "update workers set firstname= ?1,lastname= ?2,address= ?3,gender= ?4,work_category =?5, prefer_location=?6, email=?7, profile_image=?8, status=?9 where id= ?10",nativeQuery = true)
-	int profileUpdate(String firstname,String lastname,String address,String gender,String category,String location,String mail,String imageurl,String status,long id);
+	int profileUpdate(String firstname,String lastname,String address,String gender,String category,String location,String mail,String imageurl,Status status,long id);
 }

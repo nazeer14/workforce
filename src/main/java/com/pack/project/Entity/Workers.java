@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,7 +28,6 @@ public class Workers {
     private String firstname;
     @Column(nullable = true,length = 100)
     private String lastname;
-    @Column(nullable = true,length = 100)
     private String address;
     @JsonProperty("workCategory")
     @Column(name = "work_category",length = 50,nullable = true)
@@ -39,7 +40,8 @@ public class Workers {
     @Column(nullable = true,length = 100)
     private String email;
     @Column(nullable = true,length = 100)
-	private String status;
+    @Enumerated(EnumType.STRING)
+	private Status status=Status.OFF;
 	 @Column(name = "profile_image",length = 200,nullable = true)
     private String profileImage;
 	@Override
@@ -109,10 +111,10 @@ public class Workers {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public String getProfileImage() {
@@ -122,7 +124,7 @@ public class Workers {
 		this.profileImage = profileImage;
 	}
 	public Workers(long id, String number, String password, String firstname, String lastname, String address,
-			String workCategory, String preferedLocation, String gender, String email, String status,
+			String workCategory, String preferedLocation, String gender, String email, Status status,
 			String profileImage) {
 		super();
 		this.id = id;
@@ -146,3 +148,4 @@ public class Workers {
    
     
 }
+
