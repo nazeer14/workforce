@@ -18,11 +18,10 @@ public class WorkerServices {
 	{
 		return workersRepository.save(workers);
 	}
+	
+	
 	public List<Workers> getWorkers(Workers worker)
 	{
-		System.out.println("Location: " + worker.getPreferedLocation());
-		System.out.println("Category: " + worker.getWorkCategory());
-		System.out.println("Gender: " + worker.getGender());
 
 		return workersRepository.findWorkers(worker.getPreferedLocation(),worker.getWorkCategory(), worker.getGender());
 	}
@@ -32,6 +31,15 @@ public class WorkerServices {
 		return workersRepository.findAll();
 	}
 	
+	public Workers validateWorker(Workers worker)
+	{
+		return workersRepository.login(worker.getNumber(),worker.getPassword());
+	}
+	
+	public int profileUpdating(Workers worker)
+	{
+		return workersRepository.profileUpdate(worker.getFirstname(),worker.getLastname(),worker.getAddress(),worker.getGender(),worker.getWorkCategory(),worker.getPreferedLocation(),worker.getEmail(),worker.getProfileImage(),worker.getStatus(),worker.getId());
+	}
 	
 	/*public int updateById(Workers worker)
 	{

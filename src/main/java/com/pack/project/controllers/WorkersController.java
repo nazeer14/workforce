@@ -3,6 +3,7 @@ package com.pack.project.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class WorkersController {
 	private WorkerServices workerservices;
 	
 	@PostMapping("/add")
-	Workers insert(Workers worker)
+	Workers insert(@RequestBody Workers worker)
 	{
 		return workerservices.save(worker);
 	}
@@ -44,6 +45,27 @@ public class WorkersController {
 	@GetMapping("/getAll")
 	List<Workers> getMethodName() {
 		return workerservices.getAllWorkers();
+	}
+	
+	@PostMapping("/validate")
+	ResponseEntity<?> validate(@RequestBody Workers worker)
+	{
+		Workers found=workerservices.validateWorker(worker);
+		if (found != null) {
+	        return ResponseEntity.ok(found);
+	    } else {
+	        return ResponseEntity
+	                .notFound().build();
+	    }				
+	}
+	
+	@PostMapping("/profileupdate")
+	String profileUpdate(@RequestBody Workers worker) {
+		int result=workerservices.profileUpdating(worker);
+		if(result>0)
+			return worker.getFirstname()+ " Profile Added Succefully.";
+		else
+			return "Profile Not Updated";
 	}
 	
 	

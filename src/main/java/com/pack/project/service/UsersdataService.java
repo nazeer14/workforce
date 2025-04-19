@@ -1,5 +1,7 @@
 package com.pack.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,10 @@ public class UsersdataService {
 	public int resetPassword(Users user)
 	{
 		return usersdataRepository.updatePassword(user.getMobileno(),user.getPassword());
+	}
+	
+	public List<Users> getAllUsers()
+	{
+		return usersdataRepository.findAll();
 	}
 }

@@ -1,60 +1,70 @@
 package com.pack.project.Entity;
 
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
-@Table(name="bookings")
 @Entity
+@Table(name = "bookings")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Bookings {
 
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
- private Long userId;
- @Column(name = "worker_id")
- private Long workerId; // or productId
- private LocalDateTime bookingDate;
- private LocalDateTime serviceDate;
- private String status; // BOOKED, CANCELLED, COMPLETED
- private String notes;
+    private LocalDateTime bookingDate;
 
- @ManyToOne
- private User user;
+    private LocalDateTime createdAt;
 
+    private String notes;
 
+    private LocalDateTime serviceDate;
 
- private LocalDateTime createdAt;
+    private String status;
 
-private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
-public LocalDateTime getCreatedAt() {
-	return createdAt;
-}
-public void setCreatedAt(LocalDateTime createdAt) {
-	this.createdAt = createdAt;
-}
-public LocalDateTime getUpdatedAt() {
-	return updatedAt;
-}
-public void setUpdatedAt(LocalDateTime updatedAt) {
-	this.updatedAt = updatedAt;
-}
-@Override
-public String toString() {
-	return "Bookings [id=" + id + ", userId=" + userId + ", workerId=" + workerId + ", bookingDate=" + bookingDate
-			+ ", serviceDate=" + serviceDate + ", status=" + status + ", notes=" + notes + "]";
-}
+    private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentStatus payment;
 
+    // Many bookings can belong to one user
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Users user;
+
+    // Many bookings can belong to one worker
+    @ManyToOne
+    @JoinColumn(name = "worker_id", referencedColumnName = "id")
+    private Workers worker;
+
+    // Enum for payment status
+    public enum PaymentStatus {
+        PENDING,
+        PROCESSING,
+        COMPLETE,
+        FAILED
+    }
+    
 }

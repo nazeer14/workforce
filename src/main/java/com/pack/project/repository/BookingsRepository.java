@@ -9,9 +9,9 @@ import com.pack.project.Entity.Bookings;
 
 public interface BookingsRepository extends JpaRepository<Bookings, Long>{
 	
-	@Query(value = "SELECT name,userid,workerid FROM BOOKINGS WHERE userid= ?1",nativeQuery = true)
-	List<Bookings> findByWorkerId(long userid);
+	@Query(value = "SELECT * FROM BOOKINGS WHERE user_id= ?1",nativeQuery = true)
+	List<Bookings> findByUserId(long userid);
 
-	@Query(value = "SELECT name,userid,workerid FROM BOOKINGS WHERE workerid= ?1",nativeQuery = true)
-	List<Bookings>findByUserId(long workerid);
+	@Query(value = "SELECT * FROM BOOKINGS WHERE worker_id= ?1",nativeQuery = true)
+	List<Bookings> findByWorkerId(long workerid);
 }

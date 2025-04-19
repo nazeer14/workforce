@@ -16,76 +16,50 @@ public class Workers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = false,length = 100)
-    private String username;
-    @Column(nullable = false,length = 100)
+    @JsonProperty("number")
+    @Column(unique = true,length = 15)
+    private String number;
+    @JsonProperty("password")
+    @Column(length=100)
     private String password;
-    @Column(nullable = false,length = 100)
+    @Column(nullable = true,length = 100)
     private String firstname;
     @Column(nullable = true,length = 100)
     private String lastname;
     @Column(nullable = true,length = 100)
     private String address;
     @JsonProperty("workCategory")
-    @Column(name = "work_category",length = 50,nullable = false)
+    @Column(name = "work_category",length = 50,nullable = true)
     private String workCategory;
     @JsonProperty("preferedLocation")
-    @Column(name = "prefer_location",length = 50,nullable = false)
+    @Column(name = "prefer_location",length = 50,nullable = true)
     private String preferedLocation; // Make sure this matches the column or use @JsonProperty
-    @Column(nullable = false,length = 25)
+    @Column(nullable = true)
     private String gender;
-    @Column(unique = false,nullable = true,length = 15)
-    private String number;
     @Column(nullable = true,length = 100)
     private String email;
-    @Column(nullable = false,length = 100)
+    @Column(nullable = true,length = 100)
 	private String status;
 	 @Column(name = "profile_image",length = 200,nullable = true)
     private String profileImage;
-    
-    @Override
+	@Override
 	public String toString() {
-		return "Workers [id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
+		return "Workers [id=" + id + ", number=" + number + ", password=" + password + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", address=" + address + ", workCategory=" + workCategory
-				+ ", preferedLocation=" + preferedLocation + ", gender=" + gender + ", number=" + number + ", email="
-				+ email + ", status=" + status + ", profileImage=" + profileImage + "]";
+				+ ", preferedLocation=" + preferedLocation + ", gender=" + gender + ", email=" + email + ", status="
+				+ status + ", profileImage=" + profileImage + "]";
 	}
-    
-    public Workers(long id, String username, String password, String firstname, String lastname, String address,
-			String workCategory, String preferedLocation, String gender, String number, String email, String status,
-			String profileImage) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.address = address;
-		this.workCategory = workCategory;
-		this.preferedLocation = preferedLocation;
-		this.gender = gender;
-		this.number = number;
-		this.email = email;
-		this.status = status;
-		this.profileImage = profileImage;
-	}
-
-    
-	public Workers() {
-	}
-
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getUsername() {
-		return username;
+	public String getNumber() {
+		return number;
 	}
-	
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 	public String getPassword() {
 		return password;
@@ -129,18 +103,11 @@ public class Workers {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getNumber() {
-		return number;
-	}
-
-    public String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
-		}
-	public void setNumber(String number) {
-		this.number = number;
 	}
 	public String getStatus() {
 		return status;
@@ -154,7 +121,28 @@ public class Workers {
 	public void setProfileImage(String profileImage) {
 		this.profileImage = profileImage;
 	}
-	
-
-    // Getters and setters
+	public Workers(long id, String number, String password, String firstname, String lastname, String address,
+			String workCategory, String preferedLocation, String gender, String email, String status,
+			String profileImage) {
+		super();
+		this.id = id;
+		this.number = number;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
+		this.workCategory = workCategory;
+		this.preferedLocation = preferedLocation;
+		this.gender = gender;
+		this.email = email;
+		this.status = status;
+		this.profileImage = profileImage;
+	}
+	public Workers() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
+   
+    
 }
